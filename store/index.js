@@ -1,3 +1,5 @@
+import uuid from "uuid/dist/v4"
+
 export const state = () => ({
     members: [
         {
@@ -26,3 +28,14 @@ export const state = () => ({
         }
     ]
 })
+
+
+export const mutations = {
+    addUser(state, payload){
+        let newUser = {
+            ...payload,
+            id: uuid()
+        }
+        state.members.push(newUser)
+    }
+}

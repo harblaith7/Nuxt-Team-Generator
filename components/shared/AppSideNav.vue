@@ -1,21 +1,60 @@
 <template>
     <div class="side-nav">
-        <form action="" class="form">
-            <input type="text" class="input input-top" placeholder="Member Name">
-            <input type="text" class="input" placeholder="Email">
-            <input type="text" class="input" placeholder="Role">
+        <form action="" class="form" @submit.prevent="addMember">
+            <input type="text" class="input input-top" placeholder="Member Name" v-model="name" required>
+            <input type="email" class="input" placeholder="Email" v-model="email" required>
+            <input type="text" class="input" placeholder="Role" v-model="role" required>
             <input type="submit" class="input input-submit" value="Add Member">
         </form>
         <div class="members-container">
-            changes
+            <h4 class="members" v-for="member in members" :key="member.id" :id="member.id">
+                {{member.name}}
+            </h4>
         </div>
+        <form class="generate-container" @submit.prevent="generateTeam">
+            <input type="number" class="input input-number" placeholder="Number of members in team" required v-model="membersPerTeam">
+            <input type="submit" class="generate-btn" value="Generate Team">
+        </form>
     </div>
 </template>
 
 <script>
-   //import {mapState} from "vuex"
+   import {mapState, mapMutations} from "vuex"
+   
     export default {
-        
+        data(){
+            return {
+                name: "",
+                email: "",
+                role: "",
+                membersPerTeam: ""
+            }
+        },
+        computed : {
+            ...mapState({
+                members: state => state.members
+            })
+        },
+        methods: {
+            ...mapMutations({
+                addUser: "addUser"
+            }),
+            generateTeam(){
+                if(this.members.length < parseInt(this.membersPerTeam)){
+                    alert("Not enough members to make a team that big")
+                }
+            },
+            addMember(){
+                this.addUser({
+                    name: this.name,
+                    email: this.email,
+                    role: this.role
+                })
+                this.name = "";
+                this.email = "";
+                this.role = ""
+            }
+        }
     }
 </script>
 
@@ -53,9 +92,47 @@
     /* Members container */
     .members-container {
         width: 75%;
-        margin: 0 auto;
-        height: 30vh;
-        background-color: aliceblue;
-        margin-top: 1rem
+        margin: 1rem auto;
+        height: 30vh;   
+        overflow-y: auto;
+        align-items: flex-start;
     }
+
+    .members {
+        
+        width: 3rem;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.507);
+        height: 1.5rem;
+        border-radius: 0.2rem;
+        color: white;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 0.5rem;
+        float: left
+    }
+
+    /* Button styling */
+
+    .generate-container {
+        width: 75%;
+        margin: 0 auto
+    }
+
+    .generate-btn {
+        background-color: rgba(0, 0, 0, 0.459);
+        padding: 0.5rem;
+        width: 100%
+    }
+
+    .input-number {
+        width: 100%;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+
 </style>
