@@ -1,6 +1,6 @@
 <template>
-    <div class="py-10 flex justify-center">
-        
+    <div>
+        The page could not be rendered
     </div>
 </template>
 
@@ -10,6 +10,6 @@
     }
 </script>
 
-<style scoped>
-    
+<style lang="scss" scoped>
+
 </style>
