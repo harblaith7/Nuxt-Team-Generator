@@ -7,7 +7,7 @@
             <input type="submit" class="input input-submit" value="Add Member">
         </form>
         <div class="members-container">
-            <h4 class="members" v-for="member in members" :key="member.id" :id="member.id">
+            <h4 class="members" v-for="member in members" :key="member.id" :id="member.id" @click="changeRoute(member.id)">
                 {{member.name}}
             </h4>
         </div>
@@ -71,6 +71,9 @@
                 this.name = "";
                 this.email = "";
                 this.role = ""
+            },
+            changeRoute(userId){
+                this.$router.push(`/generator/${userId}`)
             } 
         }
     }

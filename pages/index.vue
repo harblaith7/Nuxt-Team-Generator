@@ -3,12 +3,12 @@
     <div class="header-container">
       <h1 class="main-heading">Team Generator</h1>
       <div class="button-container">
-        <button class="button">
+        <nuxt-link to="/generator" class="button">
           Generate Team
-        </button>
-        <button class="button">
+        </nuxt-link>
+        <nuxt-link to="/about" class="button">
           About
-        </button>
+        </nuxt-link>
       </div>
     </div>
   </div>

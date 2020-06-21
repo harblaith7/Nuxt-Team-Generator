@@ -41,6 +41,10 @@ export const mutations = {
     },
     addTeams(state, payload){
         state.teams = payload
+    },
+    removeUser(state, id){
+        console.log(id)
+        state.members = state.members.filter(member => member.id != id)
     }
 }
 
@@ -50,3 +54,5 @@ export const getters = {
         return state.members.find(member => member.id == id)
     } 
 }
+
+
