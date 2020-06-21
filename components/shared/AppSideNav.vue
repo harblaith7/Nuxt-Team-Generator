@@ -32,17 +32,35 @@
         },
         computed : {
             ...mapState({
-                members: state => state.members
+                members: state => state.members,
+                teams: state => state.teams
             })
         },
         methods: {
             ...mapMutations({
-                addUser: "addUser"
+                addUser: "addUser",
+                addTeams: "addTeams"
             }),
             generateTeam(){
                 if(this.members.length < parseInt(this.membersPerTeam)){
-                    alert("Not enough members to make a team that big")
+                    return
                 }
+                let teams = [];
+                let members = [...this.members];
+
+                while(members.length){
+                    let team = []
+                    for(let i = 0; i < this.membersPerTeam; i++){
+                        console.log("BEFORE", members)
+                        let index = Math.floor(Math.random() * members.length)
+                        team.push(members.splice(index, 1)[0])
+                        console.log("AFTER", members)
+                        if(members.length === 0) break
+                    }
+                    teams.push(team)
+                }
+
+                this.addTeams(teams)
             },
             addMember(){
                 this.addUser({
@@ -53,16 +71,17 @@
                 this.name = "";
                 this.email = "";
                 this.role = ""
-            }
+            } 
         }
     }
 </script>
 
 <style scoped>
     .side-nav {
-        width: 25rem;
+        width: 30rem;
         height: 90vh;
         background-color: rgba(124, 124, 120, 0.192);
+
         
     }
 
@@ -99,8 +118,6 @@
     }
 
     .members {
-        
-        width: 3rem;
         padding: 0.5rem;
         background-color: rgba(0, 0, 0, 0.507);
         height: 1.5rem;

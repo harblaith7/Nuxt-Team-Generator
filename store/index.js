@@ -26,7 +26,8 @@ export const state = () => ({
             role: "Tech Lead", 
             id: 4
         }
-    ]
+    ],
+    teams: []
 })
 
 
@@ -37,5 +38,15 @@ export const mutations = {
             id: uuid()
         }
         state.members.push(newUser)
+    },
+    addTeams(state, payload){
+        state.teams = payload
     }
+}
+
+
+export const getters = {
+    getUserById: (state) => (id) => {
+        return state.members.find(member => member.id == id)
+    } 
 }
